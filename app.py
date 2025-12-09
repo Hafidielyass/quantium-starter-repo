@@ -22,13 +22,14 @@ def load_data() -> pd.DataFrame:
 
 df_sales = load_data()
 REGIONS = sorted(df_sales["Region"].unique())
+REGION_OPTIONS = ["all", *REGIONS]
 
 
-def make_figure(selected_regions: list[str] | None) -> px.line:
+def make_figure(selected_region: str | None) -> px.line:
     """Create a line chart of daily sales, filtered by region."""
 
-    if selected_regions:
-        data = df_sales[df_sales["Region"].isin(selected_regions)]
+    if selected_region and selected_region != "all":
+        data = df_sales[df_sales["Region"] == selected_region]
     else:
         data = df_sales
 
@@ -74,29 +75,53 @@ app = Dash(__name__)
 app.title = "Pink Morsels Sales"
 
 app.layout = html.Div(
-    className="container",
+    className="page",
     children=[
-        html.H1("Pink Morsels Sales Visualiser"),
-        html.P(
-            "Track daily sales and compare performance before and after the 2021-01-15 price increase."
+        html.Div(
+            className="hero",
+            children=[
+                html.H1("Pink Morsels Sales Visualiser"),
+                html.P(
+                    "Track daily sales and compare performance before and after the 2021-01-15 price increase."
+                ),
+            ],
         ),
-        html.Label("Filter by region"),
-        dcc.Dropdown(
-            id="region-dropdown",
-            options=[{"label": region.title(), "value": region} for region in REGIONS],
-            value=REGIONS,
-            multi=True,
-            placeholder="Select regions",
+        html.Div(
+            className="controls",
+            children=[
+                html.Div(
+                    className="control-card",
+                    children=[
+                        html.Label("Filter by region"),
+                        dcc.RadioItems(
+                            id="region-radio",
+                            options=[
+                                {"label": label.title(), "value": value}
+                                for value, label in zip(
+                                    REGION_OPTIONS, REGION_OPTIONS
+                                )
+                            ],
+                            value="all",
+                            labelClassName="radio-label",
+                            inputClassName="radio-input",
+                        ),
+                    ],
+                ),
+            ],
         ),
-        dcc.Graph(id="sales-graph", figure=make_figure(REGIONS)),
+        html.Div(
+            className="chart-card",
+            children=[
+                dcc.Graph(id="sales-graph", figure=make_figure("all")),
+            ],
+        ),
     ],
-    style={"maxWidth": "900px", "margin": "0 auto", "padding": "24px"},
 )
 
 
-@app.callback(Output("sales-graph", "figure"), Input("region-dropdown", "value"))
-def update_graph(selected_regions: list[str] | None):
-    return make_figure(selected_regions)
+@app.callback(Output("sales-graph", "figure"), Input("region-radio", "value"))
+def update_graph(selected_region: str | None):
+    return make_figure(selected_region)
 
 
 server = app.server

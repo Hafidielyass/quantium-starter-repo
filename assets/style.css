@@ -1,0 +1,124 @@
+:root {
+  --bg: #0f172a;
+  --panel: #111827;
+  --accent: #f472b6;
+  --accent-strong: #fb7185;
+  --text: #e5e7eb;
+  --muted: #9ca3af;
+  --card: #1f2937;
+  --border: #374151;
+  --shadow: 0 20px 60px rgba(0, 0, 0, 0.35);
+  --radius: 16px;
+  --font: "Poppins", "Segoe UI", system-ui, -apple-system, sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: var(--font);
+  background: radial-gradient(circle at 20% 20%, #1f2937, #0b1222 40%, #0a0f1d),
+    radial-gradient(circle at 80% 0%, rgba(251, 113, 133, 0.12), transparent 35%),
+    var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+}
+
+.page {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 32px 20px 60px;
+}
+
+.hero {
+  background: linear-gradient(135deg, rgba(244, 114, 182, 0.2), rgba(251, 113, 133, 0.08));
+  border: 1px solid rgba(244, 114, 182, 0.25);
+  box-shadow: var(--shadow);
+  border-radius: var(--radius);
+  padding: 28px;
+  backdrop-filter: blur(6px);
+}
+
+.hero h1 {
+  margin: 0 0 10px;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+
+.hero p {
+  margin: 0;
+  color: var(--muted);
+}
+
+.controls {
+  margin: 24px 0;
+}
+
+.control-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 20px;
+  box-shadow: var(--shadow);
+}
+
+.control-card label {
+  display: block;
+  font-weight: 600;
+  margin-bottom: 10px;
+}
+
+/* Radio styling */
+.dash-radioitems label {
+  color: var(--text);
+}
+
+.radio-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 12px;
+  margin-right: 10px;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  background: #111827;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.radio-label:hover {
+  border-color: var(--accent);
+  box-shadow: 0 10px 30px rgba(251, 113, 133, 0.15);
+}
+
+.radio-input:checked + span,
+.radio-input:checked + label {
+  color: var(--accent);
+}
+
+/* Graph card */
+.chart-card {
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 16px;
+  box-shadow: var(--shadow);
+}
+
+#sales-graph {
+  height: 520px;
+}
+
+/* Graph title and axis */
+.js-plotly-plot .plotly .main-svg {
+  font-family: var(--font);
+}
+
+/* Tooltip colors inherit dark theme */
+.js-plotly-plot .plotly .hoverlayer .hovertext {
+  background: #0b1222 !important;
+  color: var(--text) !important;
+  border: 1px solid var(--border);
+}
