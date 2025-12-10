@@ -20,7 +20,11 @@ body {
   margin: 0;
   font-family: var(--font);
   background: radial-gradient(circle at 20% 20%, #1f2937, #0b1222 40%, #0a0f1d),
-    radial-gradient(circle at 80% 0%, rgba(251, 113, 133, 0.12), transparent 35%),
+    radial-gradient(
+      circle at 80% 0%,
+      rgba(251, 113, 133, 0.12),
+      transparent 35%
+    ),
     var(--bg);
   color: var(--text);
   min-height: 100vh;
@@ -33,7 +37,11 @@ body {
 }
 
 .hero {
-  background: linear-gradient(135deg, rgba(244, 114, 182, 0.2), rgba(251, 113, 133, 0.08));
+  background: linear-gradient(
+    135deg,
+    rgba(244, 114, 182, 0.2),
+    rgba(251, 113, 133, 0.08)
+  );
   border: 1px solid rgba(244, 114, 182, 0.25);
   box-shadow: var(--shadow);
   border-radius: var(--radius);
